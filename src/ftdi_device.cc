@@ -602,6 +602,11 @@ FT_STATUS FtdiDevice::WriteAsync(FtdiDevice* device, WriteBaton_t* baton)
   DWORD bytesWritten;
 
   uv_mutex_lock(&libraryMutex);
+  FT_STATUS status;
+  status = FT_SetBreakOn(device->ftHandle);
+  usleep(110);
+  status = FT_SetBreakOff(device->ftHandle);
+  usleep(16);
   ftStatus = FT_Write(device->ftHandle, baton->data, baton->length, &bytesWritten);
   uv_mutex_unlock(&libraryMutex);
 
