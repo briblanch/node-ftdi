@@ -898,8 +898,6 @@ void FtdiDevice::WaitForReadOrCloseEvent()
     struct timespec ts;
     struct timeval tp;
 
-    gettimeofday(&tp, NULL);
-
     int additionalSeconds = 0;
     int additionalMilisecs = 0;
     additionalSeconds = (WAIT_TIME_MILLISECONDS  / MILISECS_PER_SECOND);
@@ -910,7 +908,6 @@ void FtdiDevice::WaitForReadOrCloseEvent()
     additionalNanosec = (additionalNanosec % NANOSECS_PER_SECOND);
 
     /* Convert from timeval to timespec */
-    ts.tv_sec  = tp.tv_sec;
     ts.tv_nsec = additionalNanosec;
     ts.tv_sec += additionalSeconds;
 
